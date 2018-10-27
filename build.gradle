@@ -32,6 +32,8 @@ dependencies {
     compile wpilib()
     compile ctre()
     compile navx()
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')

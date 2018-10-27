@@ -1,9 +1,9 @@
-package com.team319;
+package frc.team319;
 
-import com.team254.lib.trajectory.WaypointSequence;
-import com.team319.trajectory.BobPath;
-import com.team319.trajectory.BobPathGenerator;
-import com.team319.trajectory.SrxTranslatorConfig;
+import frc.team254.lib.trajectory.WaypointSequence;
+import frc.team319.trajectory.BobPath;
+import frc.team319.trajectory.BobPathGenerator;
+import frc.team319.trajectory.SrxTranslatorConfig;
 /**
  * Forked from 254's 2014 Trajectory library just a comment to make a change
  * 
@@ -33,6 +33,20 @@ public class Main {
 		generateOppositeSideScale();
 		generateBaseline();
 		generateConfig();
+	}
+
+	private static void goForward10FeetAndTurn90DegreesLeft()
+	{
+		BobPath test = new BobPath(standardConfig, "test", 1);
+		test.addWaypoint(new WaypointSequence.Waypoint(inInches(ROBOT_LENGTH), 0, 0));
+		test.addWaypoint(new WaypointSequence.Waypoint(10, 0, 0));
+
+		BobPath turnTest = new BobPath(standardConfig, "turn", 1);
+		turnTest.addWaypoint(new WaypointSequence.Waypoint(inInches(0), inInches(0), Math.toRadians(0)));
+		turnTest.addWaypoint(new WaypointSequence.Waypoint(inDegrees(90), 0, 0));
+
+		BobPathGenerator.exportPathToJavaFile("Paths", test);
+		BobPathGenerator.exportPathToJavaFile("Paths", turnTest);
 	}
 	
 	private static void generateCenterSwitch() {
