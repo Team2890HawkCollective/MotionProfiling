@@ -33,6 +33,7 @@ public class Main {
 		generateOppositeSideScale();
 		generateBaseline();
 		generateConfig();
+		goForward10FeetAndTurn90DegreesLeft()
 	}
 
 	private static void goForward10FeetAndTurn90DegreesLeft()
