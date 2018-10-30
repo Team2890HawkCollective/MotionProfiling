@@ -11,5 +11,6 @@
     ".project": true
   },
   "wpilib.online": true,
-  "java.home": "C://Program Files//Java//jdk1.8.0_192"
+  "java.home": "C://Program Files//Java//jdk1.8.0_162",
+  "git.ignoreLimitWarning": true
 }
