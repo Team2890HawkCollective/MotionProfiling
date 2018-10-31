@@ -6,45 +6,15 @@
   "configurations": [
     {
       "type": "java",
-<<<<<<< HEAD
       "name": "CodeLens (Launch) - Main",
-=======
-      "name": "Debug (Launch)",
->>>>>>> 8cd6639a17c0db7e3474fffcf7aa0f2cbdab7c9c
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",
       "stopOnEntry": false,
-<<<<<<< HEAD
       "mainClass": "frc.team319.Main",
       "args": "",
       "projectName": "MotionProfiling"
     },
-    {
-      "name": "Debug Java",
-      "type": "java",
-      "request": "launch",
-      "externalConsole": true,
-      "stopOnEntry": true,
-      "preLaunchTask": "build",
-      "jdkPath": "${env:JAVA_HOME}/bin",
-      "cwd": "${workspaceRoot}",
-      "startupClass": "${workspaceRoot}${file}",
-      "sourcePath": [
-        "${workspaceRoot}"
-      ],
-      "classpath": [
-        "${workspaceRoot}"
-      ],
-      "options": [],
-      "args": []
-    },
-=======
-      "mainClass": "",
-      "args": ""
-    }
-    /*
->>>>>>> 8cd6639a17c0db7e3474fffcf7aa0f2cbdab7c9c
     {
       "type": "wpilib",
       "name": "WPILib Desktop Debug",
@@ -55,12 +25,7 @@
       "type": "wpilib",
       "name": "WPILib roboRIO Debug",
       "request": "launch",
-<<<<<<< HEAD
       "desktop": false
     }
-=======
-      "desktop": false,
-    }*/
->>>>>>> 8cd6639a17c0db7e3474fffcf7aa0f2cbdab7c9c
   ]
 }
