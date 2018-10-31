@@ -7,9 +7,7 @@ import frc.team254.lib.trajectory.Trajectory.Segment;
 
 import javafx.application.*;
 import javafx.scene.*;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.ScatterChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.stage.*;
 
 public class Plotter {
