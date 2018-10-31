@@ -27,13 +27,13 @@ public class Main {
 		standardConfig.scale_factor = 1.33; 
 		standardConfig.encoder_ticks_per_rev = 480;
 
-		generateCenterSwitch();
-		generateSameSideSwitch();
+		goForward10FeetAndTurn90DegreesLeft();
+		/*generateCenterSwitch();*/
+		//generateSameSideSwitch();
 		generateSameSideScale();
 		generateOppositeSideScale();
 		generateBaseline();
 		generateConfig();
-		goForward10FeetAndTurn90DegreesLeft();
 	}
 
 	private static void goForward10FeetAndTurn90DegreesLeft()
@@ -42,22 +42,28 @@ public class Main {
 		test.addWaypoint(new WaypointSequence.Waypoint(inInches(ROBOT_LENGTH), 0, 0));
 		test.addWaypoint(new WaypointSequence.Waypoint(10, 0, 0));
 
-		BobPath turnTest = new BobPath(standardConfig, "turn", 1);
-		turnTest.addWaypoint(new WaypointSequence.Waypoint(inInches(0), inInches(0), Math.toRadians(0)));
-		turnTest.addWaypoint(new WaypointSequence.Waypoint(inDegrees(90), 0, 0));
+		BobPath turnTest = new BobPath(standardConfig, "turn1", 1);
+		turnTest.addWaypoint(inInches(41), inInches(0), 0);
+		turnTest.addWaypoint(inInches(80), inInches(20), 45);
+
+		BobPath turnTest2 = new BobPath(standardConfig, "turn2", 1);
+		turnTest2.addWaypoint(inInches(80), inInches(20), 45);
+		turnTest2.addWaypoint(inInches(160), inInches(70), 90);
 
 		BobPathGenerator.exportPathToJavaFile("Paths", test);
 		BobPathGenerator.exportPathToJavaFile("Paths", turnTest);
+		BobPathGenerator.exportPathToJavaFile("Paths", turnTest2);
 	}
 	
-	private static void generateCenterSwitch() {
+	/*private static void generateCenterSwitch() {
 		BobPath centerSwitch = new BobPath(standardConfig, "CenterSwitch", 1);
 		centerSwitch.addWaypoint(new WaypointSequence.Waypoint(inInches(ROBOT_LENGTH), 0, 0));
 		centerSwitch.addWaypoint(new WaypointSequence.Waypoint(inInches(140), inInches(60), 0));
 		
 		BobPathGenerator.exportPathToJavaFile("Paths", centerSwitch);
 	}
-	
+	*/
+
 	private static void generateSameSideSwitch() {
 		SrxTranslatorConfig slowConfig = new SrxTranslatorConfig(standardConfig);
 		slowConfig.max_vel = 4.0;
@@ -72,6 +78,7 @@ public class Main {
 //		sameSideSwitch.addWaypoint(new WaypointSequence.Waypoint(inInches(145), inInches(10), 0));
 //		sameSideSwitch.addWaypoint(new WaypointSequence.Waypoint(inInches(185), inInches(-22), Math.toRadians(-89)));
 		sameSideSwitch.addWaypoint(new WaypointSequence.Waypoint(inInches(185), inInches(0), 0));
+		
 		
 		SrxTranslatorConfig turnConfig = new SrxTranslatorConfig(standardConfig);
 		turnConfig.max_vel = 4.0;
@@ -109,6 +116,7 @@ public class Main {
 		BobPathGenerator.exportPathToJavaFile("Paths", sameSideSwitchPart3);
 		BobPathGenerator.exportPathToJavaFile("Paths", sameSideSwitchPart4);
 	}
+	
 	
 	private static void generateSameSideScale() {
 		SrxTranslatorConfig sameSideScaleConfig = new SrxTranslatorConfig(standardConfig);
