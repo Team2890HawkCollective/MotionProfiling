@@ -1,12 +1,16 @@
 {
   "java.configuration.updateBuildConfiguration": "automatic",
   "files.exclude": {
+    ".classpath": true,
+    ".gradle": true,
+    ".settings": true,
     "**/.DS_Store": true,
     "**/.git": true,
     "**/.hg": true,
     "**/.svn": true,
     "**/CVS": true,
-    "bin/": true
+    "bin/": true,
+    "build/": true
   },
   "wpilib.online": true,
   "java.home": "C://Program Files//Java//jdk1.8.0_192",
