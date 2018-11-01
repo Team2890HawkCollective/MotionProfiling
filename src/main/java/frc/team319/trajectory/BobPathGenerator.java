@@ -96,7 +96,7 @@ public class BobPathGenerator extends PathGenerator {
 		}
 	}
 	public static void exportPathToJavaFile(String relativeDirectoryName, BobPath bobPath) {
-		SrxTrajectoryExporter exporter = new SrxTrajectoryExporter(relativeDirectoryName);
+		SrxTrajectoryExporter exporter = new SrxTrajectoryExporter("src/main/java/frc/team2890/" + relativeDirectoryName);
 
 		Path chezyPath = makePath(bobPath);
 
@@ -113,7 +113,7 @@ public class BobPathGenerator extends PathGenerator {
 		}
 	}
 	public static void exportPathToJavaFile(String relativeDirectoryName, BobPath bobPath, int turnDirection) {
-		SrxTrajectoryExporter exporter = new SrxTrajectoryExporter(relativeDirectoryName);
+		SrxTrajectoryExporter exporter = new SrxTrajectoryExporter("src/main/java/frc/team2890/" + relativeDirectoryName);
 
 		Path chezyPath = makePath(bobPath);
 

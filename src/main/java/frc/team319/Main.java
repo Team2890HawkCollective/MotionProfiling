@@ -28,8 +28,8 @@ public class Main {
 		standardConfig.encoder_ticks_per_rev = 480;
 
 		goForward10FeetAndTurn90DegreesLeft();
-		/*generateCenterSwitch();*/
-		//generateSameSideSwitch();
+		generateCenterSwitch();
+		generateSameSideSwitch();
 		generateSameSideScale();
 		generateOppositeSideScale();
 		generateBaseline();
@@ -55,14 +55,13 @@ public class Main {
 		BobPathGenerator.exportPathToJavaFile("Paths", turnTest2);
 	}
 	
-	/*private static void generateCenterSwitch() {
+	private static void generateCenterSwitch() {
 		BobPath centerSwitch = new BobPath(standardConfig, "CenterSwitch", 1);
 		centerSwitch.addWaypoint(new WaypointSequence.Waypoint(inInches(ROBOT_LENGTH), 0, 0));
 		centerSwitch.addWaypoint(new WaypointSequence.Waypoint(inInches(140), inInches(60), 0));
 		
 		BobPathGenerator.exportPathToJavaFile("Paths", centerSwitch);
 	}
-	*/
 
 	private static void generateSameSideSwitch() {
 		SrxTranslatorConfig slowConfig = new SrxTranslatorConfig(standardConfig);
