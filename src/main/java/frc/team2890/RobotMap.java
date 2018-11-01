@@ -7,7 +7,13 @@
 
 package frc.team2890;
 
-import frc.team319.models.*;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
+import frc.team2890.commands.autonomous_commands.MotionProfilingTestingCommandGroup;
+import frc.team2890.subsystems.DrivetrainSubsystem;
+import frc.team319.models.BobTalonSRX;
+import frc.team319.models.LeaderBobTalonSRX;
+import frc.team319.models.SRXGains;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -31,8 +37,30 @@ public class RobotMap {
   final public static int REAR_LEFT_TALON_ID = 0;
   final public static int REAR_RIGHT_TALON_ID = 0;
 
+  final public static int LINEAR_PIDF_SLOT = 0;
+  final public static int ROTATIONAL_PIDF_SLOT = 1;
+
+  final public static int linearP = 0;
+  final public static int linearI = 0;
+  final public static int linearD = 0;
+  final public static int linearF = 0;
+  final public static int linearIZone = 0;
+
+  final public static int rotationalP = 0;
+  final public static int rotationalI = 0;
+  final public static int rotationalD = 0;
+  final public static int rotationalF = 0;
+  final public static int rotationalIZone = 0;
+
   public static LeaderBobTalonSRX frontLeftTalon;
   public static LeaderBobTalonSRX frontRightTalon;
+
+  public static SRXGains linearGains;
+  public static SRXGains rotationalGains;
+
+  public static MotionProfilingTestingCommandGroup testingCommandGroup;
+
+  public static DrivetrainSubsystem drivetrain;
 
   public static void init()
   {
@@ -40,5 +68,27 @@ public class RobotMap {
     // Parameters: leaderDeviceID, follower BobTalonSRX/Any MotorController)
     frontLeftTalon = new LeaderBobTalonSRX(FRONT_LEFT_TALON_ID, new BobTalonSRX(REAR_LEFT_TALON_ID));
     frontRightTalon = new LeaderBobTalonSRX(FRONT_RIGHT_TALON_ID, new BobTalonSRX(REAR_RIGHT_TALON_ID));
+
+    linearGains = new SRXGains(LINEAR_PIDF_SLOT, linearP, linearI, linearD, linearF, linearIZone);
+    rotationalGains  = new SRXGains(ROTATIONAL_PIDF_SLOT, rotationalP, rotationalI, rotationalD, rotationalF, rotationalIZone);
+
+    testingCommandGroup = new MotionProfilingTestingCommandGroup();
+    
+    drivetrain = new DrivetrainSubsystem();
+
+    frontLeftTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Relative);
+    frontRightTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Relative);
+
+    SRXGains[] gains = {linearGains, rotationalGains};
+    setGains(gains);
+  }
+
+  private static void setGains(SRXGains[] gains)
+  {
+    for (SRXGains a : gains)
+    {
+      frontLeftTalon.setGains(a);
+      frontRightTalon.setGains(a);
+    }
   }
 }

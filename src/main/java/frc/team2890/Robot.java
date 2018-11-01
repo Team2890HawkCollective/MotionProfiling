@@ -34,11 +34,15 @@ public class Robot extends TimedRobot {
    * used for any initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit() 
+  {
     m_oi = new OI();
     m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+
+    RobotMap.frontLeftTalon.setSelectedSensorPosition(0, 0, 0);
+		RobotMap.frontRightTalon.setSelectedSensorPosition(0, 0, 0);
   }
 
   /**
@@ -99,8 +103,11 @@ public class Robot extends TimedRobot {
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic() {
+  public void autonomousPeriodic() 
+  {
     Scheduler.getInstance().run();
+
+    Scheduler.getInstance().add(RobotMap.testingCommandGroup);
   }
 
   @Override

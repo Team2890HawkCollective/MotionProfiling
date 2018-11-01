@@ -27,20 +27,30 @@ public class Main {
 		standardConfig.scale_factor = 1.33; 
 		standardConfig.encoder_ticks_per_rev = 480;
 
-		goForward10FeetAndTurn90DegreesLeft();
+		turnLeft90Degrees();
+		/*goForward10FeetAndTurn90DegreesLeft();
 		generateCenterSwitch();
 		generateSameSideSwitch();
 		generateSameSideScale();
 		generateOppositeSideScale();
 		generateBaseline();
-		generateConfig();
+		generateConfig();*/
+	}
+
+	private static void turnLeft90Degrees()
+	{
+		BobPath turnLeft = new BobPath(standardConfig, "turnLeft", 1);
+		turnLeft.addWaypoint(inInches(ROBOT_LENGTH), 0, 0);
+		turnLeft.addWaypoint(inInches(ROBOT_LENGTH) + 6, 6, 89.99);
+
+		BobPathGenerator.exportPathToJavaFile("paths", turnLeft);
 	}
 
 	private static void goForward10FeetAndTurn90DegreesLeft()
 	{
 		BobPath test = new BobPath(standardConfig, "test", 1);
-		test.addWaypoint(new WaypointSequence.Waypoint(inInches(ROBOT_LENGTH), 0, 0));
-		test.addWaypoint(new WaypointSequence.Waypoint(10, 0, 0));
+		test.addWaypoint(inInches(ROBOT_LENGTH), 0, 0);
+		test.addWaypoint(10, 0, 0);
 
 		BobPath turnTest = new BobPath(standardConfig, "turn1", 1);
 		turnTest.addWaypoint(inInches(41), inInches(0), 0);
