@@ -3,7 +3,7 @@ package frc.team319.commands;
 import frc.team319.models.BobTalonSRX;
 import frc.team319.models.SrxMotionProfile;
 import frc.team319.models.SrxTrajectory;
-import frc.team2890.RobotMap;
+import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;

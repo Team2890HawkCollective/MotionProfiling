@@ -5,12 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.team2890;
+package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
-import frc.team2890.commands.autonomous_commands.MotionProfilingTestingCommandGroup;
-import frc.team2890.subsystems.DrivetrainSubsystem;
+import frc.robot.commands.autonomous_commands.MotionProfilingTestingCommandGroup;
+import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.team319.models.BobTalonSRX;
 import frc.team319.models.LeaderBobTalonSRX;
 import frc.team319.models.SRXGains;
@@ -32,10 +32,10 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
-  final public static int FRONT_LEFT_TALON_ID = 0;
-  final public static int FRONT_RIGHT_TALON_ID = 0;
-  final public static int REAR_LEFT_TALON_ID = 0;
-  final public static int REAR_RIGHT_TALON_ID = 0;
+  final public static int FRONT_LEFT_TALON_ID = 3;
+  final public static int FRONT_RIGHT_TALON_ID = 1;
+  final public static int REAR_LEFT_TALON_ID = 2;
+  final public static int REAR_RIGHT_TALON_ID = 4;
 
   final public static int LINEAR_PIDF_SLOT = 0;
   final public static int ROTATIONAL_PIDF_SLOT = 1;
