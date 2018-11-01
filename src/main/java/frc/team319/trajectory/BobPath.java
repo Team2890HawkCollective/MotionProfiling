@@ -6,8 +6,8 @@ import frc.team254.lib.trajectory.WaypointSequence.Waypoint;
 public class BobPath {
 	private SrxTranslatorConfig config;
 	private WaypointSequence waypointSequence;
-	private boolean exportEnabled = true;
-	private boolean useDegrees = true;
+	/*private boolean exportEnabled = true;
+	private boolean useDegrees = true;*/
 	
 	public BobPath(SrxTranslatorConfig config) {
 		this.config = new SrxTranslatorConfig(config);
@@ -22,7 +22,7 @@ public class BobPath {
 	
 	public BobPath(SrxTranslatorConfig config, String name, int direction, boolean useDegrees) {
 		this(config, name, direction);
-		this.useDegrees = useDegrees;
+		//this.useDegrees = useDegrees;
 	}
 
 	public BobPath(BobPath toCopy) {

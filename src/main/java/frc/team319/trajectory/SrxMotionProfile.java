@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 //Generic Motion Profile Class
+@SuppressWarnings("unchecked")
 public class SrxMotionProfile {
 
 	public int numPoints;

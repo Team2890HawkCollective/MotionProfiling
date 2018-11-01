@@ -1,6 +1,6 @@
 package frc.team254.lib.trajectory;
 
-import frc.team254.lib.util.ChezyMath;
+//import frc.team254.lib.util.ChezyMath;
 
 /**
  * Implementation of a Trajectory using arrays as the underlying storage

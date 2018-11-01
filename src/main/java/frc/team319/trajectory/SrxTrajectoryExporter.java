@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 
 import frc.team254.lib.trajectory.WaypointSequence;
 
+@SuppressWarnings("unchecked")
 public class SrxTrajectoryExporter {
 	
 	public SrxTrajectoryExporter(String directory){

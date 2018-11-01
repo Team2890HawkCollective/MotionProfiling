@@ -11,8 +11,8 @@ import frc.team254.lib.trajectory.Trajectory;
 import frc.team254.lib.trajectory.Trajectory.Pair;
 import frc.team319.ui.PathViewer;
 
-import frc.team254.lib.trajectory.WaypointSequence;
-import frc.team254.lib.trajectory.WaypointSequence.Waypoint;
+/*import frc.team254.lib.trajectory.WaypointSequence;
+import frc.team254.lib.trajectory.WaypointSequence.Waypoint;*/
 import frc.team254.lib.trajectory.io.IPathSerializer;
 
 public class BobPathGenerator extends PathGenerator {

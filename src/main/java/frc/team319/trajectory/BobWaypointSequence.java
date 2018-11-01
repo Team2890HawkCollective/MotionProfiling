@@ -11,6 +11,7 @@ import frc.team254.lib.util.ChezyMath;
  * 
  * @author ttremblay
  */
+@SuppressWarnings("unchecked")
 public class BobWaypointSequence extends WaypointSequence{
 
   public static class BobWaypoint extends Waypoint {

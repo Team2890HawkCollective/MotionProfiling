@@ -1,6 +1,6 @@
 package frc.team254.lib.trajectory;
 
-import frc.team254.lib.trajectory.Trajectory.Segment;
+//import frc.team254.lib.trajectory.Trajectory.Segment;
 
 /**
  * Base class for an autonomous path.

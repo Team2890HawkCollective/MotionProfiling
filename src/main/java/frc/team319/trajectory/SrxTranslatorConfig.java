@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 
 import frc.team254.lib.trajectory.TrajectoryGenerator;
 
+@SuppressWarnings("unchecked")
 public class SrxTranslatorConfig extends TrajectoryGenerator.Config {
 	public String name;
 	public double wheelbase_width_feet;

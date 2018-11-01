@@ -9,7 +9,6 @@ public class BobController extends Joystick {
 
 	public BobController(int port) {
 		super(port);
-		// TODO Auto-generated constructor stub
 	}
 
 	public JoystickButton xButton = new JoystickButton(this, 3);

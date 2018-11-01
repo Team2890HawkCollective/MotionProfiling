@@ -3,6 +3,7 @@ package frc.team319.trajectory;
 import org.json.simple.JSONObject;
 
 //Combines left and right motion profiles in one object
+@SuppressWarnings("unchecked")
 public class SrxTrajectory {
 	public SrxMotionProfile leftProfile;
 	public SrxMotionProfile rightProfile;

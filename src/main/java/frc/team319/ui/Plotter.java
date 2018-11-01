@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import frc.team254.lib.trajectory.Path;
 import frc.team254.lib.trajectory.Trajectory.Segment;
 
-import javafx.application.*;
 import javafx.scene.*;
 import javafx.scene.chart.*;
 import javafx.stage.*;
@@ -14,6 +13,7 @@ public class Plotter {
 	
 	public Plotter(){}
 	
+	@SuppressWarnings("unchecked")
 	public void plotChezyTrajectory(Path path) {
 		Stage stage = new Stage();
 		
@@ -31,17 +31,17 @@ public class Plotter {
 		.append("s");
 		sc.setTitle(title.toString());
 
-		ScatterChart.Series series1 = new ScatterChart.Series();
+		ScatterChart.Series<Number,Number> series1 = new ScatterChart.Series<Number,Number>();
 		
 		series1.setName("Left");
 		for (int i = 0; i < path.getPair().left.getNumSegments(); i++) {
-			series1.getData().add(new XYChart.Data(path.getPair().left.getSegment(i).x, path.getPair().left.getSegment(i).y));
+			series1.getData().add(new XYChart.Data<Number,Number>(path.getPair().left.getSegment(i).x, path.getPair().left.getSegment(i).y));
 		}
 
-		XYChart.Series series2 = new XYChart.Series();
+		XYChart.Series<Number, Number> series2 = new XYChart.Series<Number, Number>();
 		series2.setName("Right");
 		for (int i = 0; i < path.getPair().left.getNumSegments(); i++) {
-			series2.getData().add(new XYChart.Data(path.getPair().right.getSegment(i).x, path.getPair().right.getSegment(i).y));
+			series2.getData().add(new XYChart.Data<Number, Number>(path.getPair().right.getSegment(i).x, path.getPair().right.getSegment(i).y));
 		}
 		
 		sc.getData().addAll(series1, series2);
