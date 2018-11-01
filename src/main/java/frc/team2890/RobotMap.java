@@ -7,6 +7,8 @@
 
 package frc.team2890;
 
+import frc.team319.models.*;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -23,4 +25,20 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
+
+  final public static int FRONT_LEFT_TALON_ID = 0;
+  final public static int FRONT_RIGHT_TALON_ID = 0;
+  final public static int REAR_LEFT_TALON_ID = 0;
+  final public static int REAR_RIGHT_TALON_ID = 0;
+
+  public static LeaderBobTalonSRX frontLeftTalon;
+  public static LeaderBobTalonSRX frontRightTalon;
+
+  public static void init()
+  {
+    // Create new "Leader talons", where when a speed is set to the lead talons, the follower talons also are set that speed
+    // Parameters: leaderDeviceID, follower BobTalonSRX/Any MotorController)
+    frontLeftTalon = new LeaderBobTalonSRX(FRONT_LEFT_TALON_ID, new BobTalonSRX(REAR_LEFT_TALON_ID));
+    frontRightTalon = new LeaderBobTalonSRX(FRONT_RIGHT_TALON_ID, new BobTalonSRX(REAR_RIGHT_TALON_ID));
+  }
 }
