@@ -7,13 +7,13 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+/*import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import frc.robot.commands.autonomous_commands.MotionProfilingTestingCommandGroup;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.team319.models.BobTalonSRX;
 import frc.team319.models.LeaderBobTalonSRX;
-import frc.team319.models.SRXGains;
+import frc.team319.models.SRXGains;*/
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -36,7 +36,7 @@ public class RobotMap {
   final public static int FRONT_RIGHT_TALON_ID = 1;
   final public static int REAR_LEFT_TALON_ID = 2;
   final public static int REAR_RIGHT_TALON_ID = 4;
-
+  /*
   final public static int LINEAR_PIDF_SLOT = 0;
   final public static int ROTATIONAL_PIDF_SLOT = 1;
 
@@ -60,13 +60,18 @@ public class RobotMap {
 
   public static MotionProfilingTestingCommandGroup testingCommandGroup;
 
-  public static DrivetrainSubsystem drivetrain;
+  public static DrivetrainSubsystem drivetrain;*/
+  
+  public static WPI_TalonSRX frontLeftTalon;
+  public static WPI_TalonSRX frontRightTalon;
+  public static WPI_TalonSRX rearLeftTalon;
+  public static WPI_TalonSRX rearRightTalon;
 
   public static void init()
   {
     // Create new "Leader talons", where when a speed is set to the lead talons, the follower talons also are set that speed
     // Parameters: leaderDeviceID, follower BobTalonSRX/Any MotorController)
-    frontLeftTalon = new LeaderBobTalonSRX(FRONT_LEFT_TALON_ID, new BobTalonSRX(REAR_LEFT_TALON_ID));
+    /*frontLeftTalon = new LeaderBobTalonSRX(FRONT_LEFT_TALON_ID, new BobTalonSRX(REAR_LEFT_TALON_ID));
     frontRightTalon = new LeaderBobTalonSRX(FRONT_RIGHT_TALON_ID, new BobTalonSRX(REAR_RIGHT_TALON_ID));
 
     linearGains = new SRXGains(LINEAR_PIDF_SLOT, linearP, linearI, linearD, linearF, linearIZone);
@@ -80,15 +85,23 @@ public class RobotMap {
     frontRightTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Relative);
 
     SRXGains[] gains = {linearGains, rotationalGains};
-    setGains(gains);
+    setGains(gains);*/
+    
+    frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
+    frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
+    rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
+    rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
+    
+    rearLeftTalon.follow(frontLeftTalon);
+    rearRightTalon.follow(frontRightTalon);
   }
 
-  private static void setGains(SRXGains[] gains)
+  /*private static void setGains(SRXGains[] gains)
   {
     for (SRXGains a : gains)
     {
       frontLeftTalon.setGains(a);
       frontRightTalon.setGains(a);
     }
-  }
+  }*/
 }
