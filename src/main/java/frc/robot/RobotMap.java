@@ -15,6 +15,8 @@ import frc.team319.models.BobTalonSRX;
 import frc.team319.models.LeaderBobTalonSRX;
 import frc.team319.models.SRXGains;*/
 
+import frc.robot.components.*;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
