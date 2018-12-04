@@ -32,10 +32,12 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
+  //Talon ID's
   final public static int FRONT_LEFT_TALON_ID = 3;
   final public static int FRONT_RIGHT_TALON_ID = 1;
   final public static int REAR_LEFT_TALON_ID = 2;
   final public static int REAR_RIGHT_TALON_ID = 4;
+  
   /*
   final public static int LINEAR_PIDF_SLOT = 0;
   final public static int ROTATIONAL_PIDF_SLOT = 1;
@@ -62,10 +64,10 @@ public class RobotMap {
 
   public static DrivetrainSubsystem drivetrain;*/
   
-  public static WPI_TalonSRX frontLeftTalon;
-  public static WPI_TalonSRX frontRightTalon;
-  public static WPI_TalonSRX rearLeftTalon;
-  public static WPI_TalonSRX rearRightTalon;
+  public static HawkTalonSRX frontLeftTalon;
+  public static HawkTalonSRX frontRightTalon;
+  public static HawkTalonSRX rearLeftTalon;
+  public static HawkTalonSRX rearRightTalon;
 
   public static void init()
   {
@@ -87,10 +89,10 @@ public class RobotMap {
     SRXGains[] gains = {linearGains, rotationalGains};
     setGains(gains);*/
     
-    frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
-    frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
-    rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
-    rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
+    frontLeftTalon = new HawkTalonSRX(FRONT_LEFT_TALON_ID);
+    frontRightTalon = new HawkTalonSRX(FRONT_RIGHT_TALON_ID);
+    rearLeftTalon = new HawkTalonSRX(REAR_LEFT_TALON_ID);
+    rearRightTalon = new HawkTalonSRX(REAR_RIGHT_TALON_ID);
     
     rearLeftTalon.follow(frontLeftTalon);
     rearRightTalon.follow(frontRightTalon);
