@@ -107,7 +107,8 @@ public class Robot extends TimedRobot
       m_autonomousCommand.start();
     }
 
-    new MotionProfilingTestingCommandGroup().start();
+    //new MotionProfilingTestingCommandGroup().start();
+    new getGyroValuesCommand(5).start();
   }
 
   /**
