@@ -10,11 +10,12 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.SerialPort;
-import frc.robot.commands.autonomous_commands.MotionProfilingTestingCommandGroup;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.team319.models.LeaderBobTalonSRX;
-import frc.team319.models.SRXGains;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
+import frc.robot.components.*;
+import frc.robot.commands.autonomous_commands.*;
+
+import frc.team319.models.*;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -54,30 +55,41 @@ public class RobotMap {
   final public static double rotationalF = 0;
   final public static int rotationalIZone = 0;
 
-  public static LeaderBobTalonSRX frontLeftTalon;
-  public static LeaderBobTalonSRX frontRightTalon;
+  //public static LeaderBobTalonSRX frontLeftTalon;
+  //public static LeaderBobTalonSRX frontRightTalon;
 
   public static AHRS navX;
 
   public static SRXGains linearGains;
   public static SRXGains rotationalGains;
 
-  public static MotionProfilingTestingCommandGroup testingCommandGroup;
+  //public static MotionProfilingTestingCommandGroup testingCommandGroup;
 
   public static DrivetrainSubsystem drivetrain;
+  
+  public static HawkTalonSRX frontLeftTalon;
+  public static HawkTalonSRX frontRightTalon;
+  public static HawkTalonSRX rearLeftTalon;
+  public static HawkTalonSRX rearRightTalon;
 
   public static void init()
   {
     // Create new "Leader talons", where when a speed is set to the lead talons, the follower talons also are set that speed
     // Parameters: leaderDeviceID, follower BobTalonSRX/Any MotorController)
-    frontLeftTalon = new LeaderBobTalonSRX(FRONT_LEFT_TALON_ID, new TalonSRX(REAR_LEFT_TALON_ID));
-    frontRightTalon = new LeaderBobTalonSRX(FRONT_RIGHT_TALON_ID, new TalonSRX(REAR_RIGHT_TALON_ID));
-
-    //navX = new AHRS(SerialPort.Port.kMXP);
+    /*frontLeftTalon = new LeaderBobTalonSRX(FRONT_LEFT_TALON_ID, new BobTalonSRX(REAR_LEFT_TALON_ID));
+    frontRightTalon = new LeaderBobTalonSRX(FRONT_RIGHT_TALON_ID, new BobTalonSRX(REAR_RIGHT_TALON_ID));
+    */
 
     linearGains = new SRXGains(LINEAR_PIDF_SLOT, linearP, linearI, linearD, linearF, linearIZone);
     rotationalGains  = new SRXGains(ROTATIONAL_PIDF_SLOT, rotationalP, rotationalI, rotationalD, rotationalF, rotationalIZone);
 
+    //testingCommandGroup = new MotionProfilingTestingCommandGroup();
+
+    frontLeftTalon = new HawkTalonSRX(FRONT_LEFT_TALON_ID);
+    frontRightTalon = new HawkTalonSRX(FRONT_RIGHT_TALON_ID);
+    rearLeftTalon = new HawkTalonSRX(REAR_LEFT_TALON_ID);
+    rearRightTalon = new HawkTalonSRX(REAR_RIGHT_TALON_ID);
+    
     drivetrain = new DrivetrainSubsystem();
 
     //testingCommandGroup = new MotionProfilingTestingCommandGroup();
@@ -86,7 +98,10 @@ public class RobotMap {
     //frontRightTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Absolute);
 
     SRXGains[] gains = {linearGains, rotationalGains};
-    //setGains(gains);
+    setGains(gains);
+    
+    rearLeftTalon.follow(frontLeftTalon);
+    rearRightTalon.follow(frontRightTalon);
   }
 
   private static void setGains(SRXGains[] gains)

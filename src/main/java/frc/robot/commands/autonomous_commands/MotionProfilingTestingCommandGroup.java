@@ -9,7 +9,6 @@ public class MotionProfilingTestingCommandGroup extends CommandGroup
 {
 	public MotionProfilingTestingCommandGroup()
 	{
-		System.out.println("Hewwo mr obawma?");
 		addSequential(new FollowTrajectory(new turnLeft()));
 	}
 }

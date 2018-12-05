@@ -7,18 +7,16 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.autonomous_commands.getGyroValuesCommand;
-import frc.robot.paths.turnLeft;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.team319.commands.FollowTrajectory;
+
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
+import frc.robot.components.*;
+import frc.robot.commands.autonomous_commands.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,7 +25,8 @@ import frc.team319.commands.FollowTrajectory;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
 
@@ -41,15 +40,13 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() 
   {
-    RobotMap.init();
     m_oi = new OI();
     m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
-    //SmartDashboard.putData(RobotMap.navX);
 
-    //RobotMap.frontLeftTalon.setSelectedSensorPosition(0, 0, 0);
-		//RobotMap.frontRightTalon.setSelectedSensorPosition(0, 0, 0);
+    RobotMap.init();
+	  
   }
 
   /**
@@ -61,7 +58,8 @@ public class Robot extends TimedRobot {
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
+  public void robotPeriodic() 
+  {
   }
 
   /**
@@ -70,11 +68,13 @@ public class Robot extends TimedRobot {
    * the robot is disabled.
    */
   @Override
-  public void disabledInit() {
+  public void disabledInit() 
+  {
   }
 
   @Override
-  public void disabledPeriodic() {
+  public void disabledPeriodic() 
+  {
     Scheduler.getInstance().run();
   }
 
@@ -90,7 +90,8 @@ public class Robot extends TimedRobot {
    * to the switch structure below with additional strings & commands.
    */
   @Override
-  public void autonomousInit() {
+  public void autonomousInit() 
+  {
     m_autonomousCommand = m_chooser.getSelected();
 
     /*
@@ -101,15 +102,12 @@ public class Robot extends TimedRobot {
      */
 
     // schedule the autonomous command (example)
-
-    //new FollowTrajectory(new turnLeft()).start();
-    RobotMap.drivetrain.forwards();
-
-    /*
-    if (m_autonomousCommand != null) {
+    if (m_autonomousCommand != null) 
+    {
       m_autonomousCommand.start();
     }
-    */
+
+    new MotionProfilingTestingCommandGroup().start();
   }
 
   /**
@@ -118,21 +116,18 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() 
   {
-    //Scheduler.getInstance().run();
-
-    //LOOK AT THIS DREW, THERE WERE ERRORS
-    //Scheduler.getInstance().run();
-    //ocalStorage.setItem("matchNumber", null);
-
+    Scheduler.getInstance().run();
   }
 
   @Override
-  public void teleopInit() {
+  public void teleopInit() 
+  {
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
+    if (m_autonomousCommand != null) 
+    {
       m_autonomousCommand.cancel();
     }
   }
@@ -143,16 +138,14 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    Scheduler.getInstance().run();
-
-    //RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, 1);
-    //RobotMap.frontRightTalon.set(ControlMode.PercentOutput, 1);
+    RobotMap.frontLeftTalon.set(1);
   }
 
   /**
    * This function is called periodically during test mode.
    */
   @Override
-  public void testPeriodic() {
+  public void testPeriodic() 
+  {
   }
 }
