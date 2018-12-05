@@ -7,15 +7,14 @@
 
 package frc.robot;
 
-/*import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
-import frc.robot.commands.autonomous_commands.MotionProfilingTestingCommandGroup;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.team319.models.BobTalonSRX;
-import frc.team319.models.LeaderBobTalonSRX;
-import frc.team319.models.SRXGains;*/
-
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 import frc.robot.components.*;
+import frc.robot.commands.autonomous_commands.*;
+
+import frc.team319.models.*;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -40,14 +39,14 @@ public class RobotMap {
   final public static int REAR_LEFT_TALON_ID = 2;
   final public static int REAR_RIGHT_TALON_ID = 4;
   
-  /*
+  
   final public static int LINEAR_PIDF_SLOT = 0;
   final public static int ROTATIONAL_PIDF_SLOT = 1;
 
-  final public static int linearP = 0;
-  final public static int linearI = 0;
-  final public static int linearD = 0;
-  final public static int linearF = 0;
+  final public static int linearP = 1;
+  final public static int linearI = 1;
+  final public static int linearD = 1;
+  final public static int linearF = 1;
   final public static int linearIZone = 0;
 
   final public static int rotationalP = 0;
@@ -56,15 +55,15 @@ public class RobotMap {
   final public static int rotationalF = 0;
   final public static int rotationalIZone = 0;
 
-  public static LeaderBobTalonSRX frontLeftTalon;
-  public static LeaderBobTalonSRX frontRightTalon;
+  //public static LeaderBobTalonSRX frontLeftTalon;
+  //public static LeaderBobTalonSRX frontRightTalon;
 
   public static SRXGains linearGains;
   public static SRXGains rotationalGains;
 
-  public static MotionProfilingTestingCommandGroup testingCommandGroup;
+  //public static MotionProfilingTestingCommandGroup testingCommandGroup;
 
-  public static DrivetrainSubsystem drivetrain;*/
+  public static DrivetrainSubsystem drivetrain;
   
   public static HawkTalonSRX frontLeftTalon;
   public static HawkTalonSRX frontRightTalon;
@@ -77,11 +76,17 @@ public class RobotMap {
     // Parameters: leaderDeviceID, follower BobTalonSRX/Any MotorController)
     /*frontLeftTalon = new LeaderBobTalonSRX(FRONT_LEFT_TALON_ID, new BobTalonSRX(REAR_LEFT_TALON_ID));
     frontRightTalon = new LeaderBobTalonSRX(FRONT_RIGHT_TALON_ID, new BobTalonSRX(REAR_RIGHT_TALON_ID));
+    */
 
     linearGains = new SRXGains(LINEAR_PIDF_SLOT, linearP, linearI, linearD, linearF, linearIZone);
     rotationalGains  = new SRXGains(ROTATIONAL_PIDF_SLOT, rotationalP, rotationalI, rotationalD, rotationalF, rotationalIZone);
 
-    testingCommandGroup = new MotionProfilingTestingCommandGroup();
+    //testingCommandGroup = new MotionProfilingTestingCommandGroup();
+
+    frontLeftTalon = new HawkTalonSRX(FRONT_LEFT_TALON_ID);
+    frontRightTalon = new HawkTalonSRX(FRONT_RIGHT_TALON_ID);
+    rearLeftTalon = new HawkTalonSRX(REAR_LEFT_TALON_ID);
+    rearRightTalon = new HawkTalonSRX(REAR_RIGHT_TALON_ID);
     
     drivetrain = new DrivetrainSubsystem();
 
@@ -89,23 +94,18 @@ public class RobotMap {
     frontRightTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Relative);
 
     SRXGains[] gains = {linearGains, rotationalGains};
-    setGains(gains);*/
-    
-    frontLeftTalon = new HawkTalonSRX(FRONT_LEFT_TALON_ID);
-    frontRightTalon = new HawkTalonSRX(FRONT_RIGHT_TALON_ID);
-    rearLeftTalon = new HawkTalonSRX(REAR_LEFT_TALON_ID);
-    rearRightTalon = new HawkTalonSRX(REAR_RIGHT_TALON_ID);
+    setGains(gains);
     
     rearLeftTalon.follow(frontLeftTalon);
     rearRightTalon.follow(frontRightTalon);
   }
 
-  /*private static void setGains(SRXGains[] gains)
+  private static void setGains(SRXGains[] gains)
   {
     for (SRXGains a : gains)
     {
       frontLeftTalon.setGains(a);
       frontRightTalon.setGains(a);
     }
-  }*/
+  }
 }

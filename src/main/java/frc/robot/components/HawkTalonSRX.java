@@ -1,13 +1,19 @@
 package frc.robot.components;
 
-import frc.team319.models.BobTalonSRX
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import edu.wpi.first.wpilibj.MotorSafetyHelper;
+import edu.wpi.first.wpilibj.hal.HAL;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import frc.team319.models.BobTalonSRX;
 
 public class HawkTalonSRX extends BobTalonSRX implements edu.wpi.first.wpilibj.SpeedController, edu.wpi.first.wpilibj.Sendable, edu.wpi.first.wpilibj.MotorSafety
 {
   /* 
    * Copied from WPI_TalonSRX because you can only extend one class and this has less methods than BobTalonSRX
   */
-  private String _description;
+  	private String _description;
 	private double _speed;
 	private MotorSafetyHelper _safetyHelper;
   
@@ -215,3 +221,4 @@ public class HawkTalonSRX extends BobTalonSRX implements edu.wpi.first.wpilibj.S
 	public String getDescription() {
 		return _description;
 	}
+}

@@ -8,6 +8,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
+import frc.robot.components.*;
+import frc.robot.commands.autonomous_commands.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,6 +44,8 @@ public class Robot extends TimedRobot
     m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+
+    RobotMap.init();
 	  
   }
 
@@ -95,6 +106,8 @@ public class Robot extends TimedRobot
     {
       m_autonomousCommand.start();
     }
+
+    new MotionProfilingTestingCommandGroup().start();
   }
 
   /**
@@ -125,6 +138,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
+    RobotMap.frontLeftTalon.set(1);
   }
 
   /**
