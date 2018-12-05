@@ -41,9 +41,9 @@ public class Main {
 	{
 		BobPath turnLeft = new BobPath(standardConfig, "turnLeft", 1);
 		turnLeft.addWaypoint(inInches(ROBOT_LENGTH), 0, 0);
-		turnLeft.addWaypoint(inInches(ROBOT_LENGTH) + 6, 6, 89.99);
+		turnLeft.addWaypoint(inInches(ROBOT_LENGTH) + 10, 0, 0);
 
-		BobPathGenerator.exportPathToJavaFile("paths", turnLeft);
+		BobPathGenerator.exportPathToJavaFile("Paths", turnLeft);
 	}
 
 	private static void goForward10FeetAndTurn90DegreesLeft()

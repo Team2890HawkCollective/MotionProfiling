@@ -7,13 +7,18 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.autonomous_commands.getGyroValuesCommand;
+import frc.robot.paths.turnLeft;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.team319.commands.FollowTrajectory;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,13 +41,15 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() 
   {
+    RobotMap.init();
     m_oi = new OI();
     m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+    //SmartDashboard.putData(RobotMap.navX);
 
-    RobotMap.frontLeftTalon.setSelectedSensorPosition(0, 0, 0);
-		RobotMap.frontRightTalon.setSelectedSensorPosition(0, 0, 0);
+    //RobotMap.frontLeftTalon.setSelectedSensorPosition(0, 0, 0);
+		//RobotMap.frontRightTalon.setSelectedSensorPosition(0, 0, 0);
   }
 
   /**
@@ -94,9 +101,15 @@ public class Robot extends TimedRobot {
      */
 
     // schedule the autonomous command (example)
+
+    //new FollowTrajectory(new turnLeft()).start();
+    RobotMap.drivetrain.forwards();
+
+    /*
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
     }
+    */
   }
 
   /**
@@ -105,9 +118,12 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() 
   {
-    Scheduler.getInstance().run();
+    //Scheduler.getInstance().run();
 
-    Scheduler.getInstance().add(RobotMap.testingCommandGroup);
+    //LOOK AT THIS DREW, THERE WERE ERRORS
+    //Scheduler.getInstance().run();
+    //ocalStorage.setItem("matchNumber", null);
+
   }
 
   @Override
@@ -125,8 +141,12 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic() 
+  {
     Scheduler.getInstance().run();
+
+    //RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, 1);
+    //RobotMap.frontRightTalon.set(ControlMode.PercentOutput, 1);
   }
 
   /**

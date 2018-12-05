@@ -7,11 +7,12 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.SerialPort;
 import frc.robot.commands.autonomous_commands.MotionProfilingTestingCommandGroup;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.team319.models.BobTalonSRX;
 import frc.team319.models.LeaderBobTalonSRX;
 import frc.team319.models.SRXGains;
 
@@ -32,28 +33,31 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
-  final public static int FRONT_LEFT_TALON_ID = 3;
-  final public static int FRONT_RIGHT_TALON_ID = 1;
+  final public static int FRONT_LEFT_TALON_ID = 7;
+  final public static int FRONT_RIGHT_TALON_ID = 6;
+  //switched from 3 to 2
   final public static int REAR_LEFT_TALON_ID = 2;
-  final public static int REAR_RIGHT_TALON_ID = 4;
+  final public static int REAR_RIGHT_TALON_ID = 1;
 
   final public static int LINEAR_PIDF_SLOT = 0;
   final public static int ROTATIONAL_PIDF_SLOT = 1;
 
-  final public static int linearP = 0;
-  final public static int linearI = 0;
-  final public static int linearD = 0;
-  final public static int linearF = 0;
+  final public static double linearP = 0.7;
+  final public static double linearI = 0;
+  final public static double linearD = 0;
+  final public static double linearF = 0.7;
   final public static int linearIZone = 0;
 
-  final public static int rotationalP = 0;
-  final public static int rotationalI = 0;
-  final public static int rotationalD = 0;
-  final public static int rotationalF = 0;
+  final public static double rotationalP = 7;
+  final public static double rotationalI = 0;
+  final public static double rotationalD = 0;
+  final public static double rotationalF = 0;
   final public static int rotationalIZone = 0;
 
   public static LeaderBobTalonSRX frontLeftTalon;
   public static LeaderBobTalonSRX frontRightTalon;
+
+  public static AHRS navX;
 
   public static SRXGains linearGains;
   public static SRXGains rotationalGains;
@@ -66,21 +70,23 @@ public class RobotMap {
   {
     // Create new "Leader talons", where when a speed is set to the lead talons, the follower talons also are set that speed
     // Parameters: leaderDeviceID, follower BobTalonSRX/Any MotorController)
-    frontLeftTalon = new LeaderBobTalonSRX(FRONT_LEFT_TALON_ID, new BobTalonSRX(REAR_LEFT_TALON_ID));
-    frontRightTalon = new LeaderBobTalonSRX(FRONT_RIGHT_TALON_ID, new BobTalonSRX(REAR_RIGHT_TALON_ID));
+    frontLeftTalon = new LeaderBobTalonSRX(FRONT_LEFT_TALON_ID, new TalonSRX(REAR_LEFT_TALON_ID));
+    frontRightTalon = new LeaderBobTalonSRX(FRONT_RIGHT_TALON_ID, new TalonSRX(REAR_RIGHT_TALON_ID));
+
+    //navX = new AHRS(SerialPort.Port.kMXP);
 
     linearGains = new SRXGains(LINEAR_PIDF_SLOT, linearP, linearI, linearD, linearF, linearIZone);
     rotationalGains  = new SRXGains(ROTATIONAL_PIDF_SLOT, rotationalP, rotationalI, rotationalD, rotationalF, rotationalIZone);
 
-    testingCommandGroup = new MotionProfilingTestingCommandGroup();
-    
     drivetrain = new DrivetrainSubsystem();
 
-    frontLeftTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Relative);
-    frontRightTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Relative);
+    //testingCommandGroup = new MotionProfilingTestingCommandGroup();
+
+    //frontLeftTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Absolute);
+    //frontRightTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Absolute);
 
     SRXGains[] gains = {linearGains, rotationalGains};
-    setGains(gains);
+    //setGains(gains);
   }
 
   private static void setGains(SRXGains[] gains)

@@ -30,7 +30,7 @@ public class SrxTrajectoryExporter {
 		StringBuilder sb = new StringBuilder();
 		
 		// package and imports
-		sb.append("package frc.team2890.paths;\r\n" + 
+		sb.append("package frc.robot.paths;\r\n" + 
 				"\r\n" + 
 				"import frc.team319.models.SrxMotionProfile;\r\n" + 
 				"import frc.team319.models.SrxTrajectory;\r\n\r\n");

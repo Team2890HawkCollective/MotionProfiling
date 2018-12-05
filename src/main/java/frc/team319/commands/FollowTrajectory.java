@@ -115,6 +115,8 @@ public class FollowTrajectory extends Command {
 		setUpTalon(rightTalon);
 		setUpTalon(leftTalon);
 
+		System.out.println("talons set up");
+
 		setValue = SetValueMotionProfile.Disable;
 
 		leftTalon.set(ControlMode.MotionProfile, setValue.value);
@@ -127,9 +129,10 @@ public class FollowTrajectory extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		rightTalon.getMotionProfileStatus(rightStatus);
-		leftTalon.getMotionProfileStatus(leftStatus);
+		System.out.println(rightTalon.getMotionProfileStatus(rightStatus));
+		System.out.println(leftTalon.getMotionProfileStatus(leftStatus));
 
+		//Underrun?
 		if (rightStatus.isUnderrun || leftStatus.isUnderrun) {
 			// if either MP has underrun, stop both
 			System.out.println("Motion profile has underrun!");
@@ -137,12 +140,13 @@ public class FollowTrajectory extends Command {
 		} else if (rightStatus.btmBufferCnt > kMinPointsInTalon && leftStatus.btmBufferCnt > kMinPointsInTalon) {
 			// if we have enough points in the talon, go.
 			setValue = SetValueMotionProfile.Enable;
+			System.out.println("Yay1");
 			hasPathStarted = true;
 		} else if (rightStatus.activePointValid && rightStatus.isLast && leftStatus.activePointValid
 				&& leftStatus.isLast) {
 			// if both profiles are at their last points, hold the last point
 			setValue = SetValueMotionProfile.Hold;
-			// System.out.println("HOLDING LAST POINT!!!!!");
+			System.out.println("HOLDING LAST POINT!!!!!");
 		}
 
 		leftTalon.set(ControlMode.MotionProfile, setValue.value);
@@ -181,10 +185,11 @@ public class FollowTrajectory extends Command {
 		bufferNotifier.stop();
 	}
 
+	//Define prepare
 	// set up the talon for motion profile control
 	public void setUpTalon(TalonSRX talon) {
 		talon.clearMotionProfileTrajectories();
-		talon.changeMotionControlFramePeriod(5);
+		talon.changeMotionControlFramePeriod(5); //Nani?
 	}
 
 	// set the to the desired controlMode

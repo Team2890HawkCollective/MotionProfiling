@@ -7,7 +7,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -21,5 +24,11 @@ public class DrivetrainSubsystem extends Subsystem {
   {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public void forwards()
+  {
+    RobotMap.frontLeftTalon.set(ControlMode.PercentOutput, 1.0);
+    RobotMap.frontRightTalon.set(ControlMode.PercentOutput, 1.0);
   }
 }
