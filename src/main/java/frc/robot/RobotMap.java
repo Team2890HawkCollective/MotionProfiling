@@ -7,15 +7,13 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
-import frc.robot.components.*;
-import frc.robot.commands.autonomous_commands.*;
+import edu.wpi.first.wpilibj.SPI;
 
-import frc.team319.models.*;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -49,28 +47,30 @@ public class RobotMap {
   final public static double linearF = 0.7;
   final public static int linearIZone = 0;
 
-  final public static double rotationalP = 7;
+  final public static double rotationalP = 0.7;
   final public static double rotationalI = 0;
   final public static double rotationalD = 0;
   final public static double rotationalF = 0;
   final public static int rotationalIZone = 0;
+
+  final public static SPI.Port navXPort = SPI.Port.kMXP;
 
   //public static LeaderBobTalonSRX frontLeftTalon;
   //public static LeaderBobTalonSRX frontRightTalon;
 
   public static AHRS navX;
 
-  public static SRXGains linearGains;
-  public static SRXGains rotationalGains;
+  //public static SRXGains linearGains;
+  //public static SRXGains rotationalGains;
 
   //public static MotionProfilingTestingCommandGroup testingCommandGroup;
 
   public static DrivetrainSubsystem drivetrain;
   
-  public static HawkTalonSRX frontLeftTalon;
-  public static HawkTalonSRX frontRightTalon;
-  public static HawkTalonSRX rearLeftTalon;
-  public static HawkTalonSRX rearRightTalon;
+  public static WPI_TalonSRX frontLeftTalon;
+  public static WPI_TalonSRX frontRightTalon;
+  public static WPI_TalonSRX rearLeftTalon;
+  public static WPI_TalonSRX rearRightTalon;
 
   public static void init()
   {
@@ -80,36 +80,43 @@ public class RobotMap {
     frontRightTalon = new LeaderBobTalonSRX(FRONT_RIGHT_TALON_ID, new BobTalonSRX(REAR_RIGHT_TALON_ID));
     */
 
-    linearGains = new SRXGains(LINEAR_PIDF_SLOT, linearP, linearI, linearD, linearF, linearIZone);
-    rotationalGains  = new SRXGains(ROTATIONAL_PIDF_SLOT, rotationalP, rotationalI, rotationalD, rotationalF, rotationalIZone);
+    //linearGains = new SRXGains(LINEAR_PIDF_SLOT, linearP, linearI, linearD, linearF, linearIZone);
+    //rotationalGains  = new SRXGains(ROTATIONAL_PIDF_SLOT, rotationalP, rotationalI, rotationalD, rotationalF, rotationalIZone);
 
     //testingCommandGroup = new MotionProfilingTestingCommandGroup();
 
-    frontLeftTalon = new HawkTalonSRX(FRONT_LEFT_TALON_ID);
-    frontRightTalon = new HawkTalonSRX(FRONT_RIGHT_TALON_ID);
-    rearLeftTalon = new HawkTalonSRX(REAR_LEFT_TALON_ID);
-    rearRightTalon = new HawkTalonSRX(REAR_RIGHT_TALON_ID);
+    frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
+    frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
+    rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
+    rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
+
+    navX = new AHRS(navXPort);
     
     drivetrain = new DrivetrainSubsystem();
 
     //testingCommandGroup = new MotionProfilingTestingCommandGroup();
 
-    //frontLeftTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Absolute);
-    //frontRightTalon.configPrimaryFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Absolute);
+    //frontLeftTalon.configPrimaryFeedbackDevice(FeedbackDevice.QuadEncoder);
+    //frontRightTalon.configPrimaryFeedbackDevice(FeedbackDevice.QuadEncoder);
 
-    SRXGains[] gains = {linearGains, rotationalGains};
-    setGains(gains);
+    //SRXGains[] gains = {linearGains, rotationalGains};
+    //setGains(gains);
+
+    frontLeftTalon.setInverted(true);
+    frontRightTalon.setInverted(true);
+    rearLeftTalon.setInverted(false);
+    rearRightTalon.setInverted(true);
     
     rearLeftTalon.follow(frontLeftTalon);
     rearRightTalon.follow(frontRightTalon);
   }
 
-  private static void setGains(SRXGains[] gains)
+  /*private static void setGains(SRXGains[] gains)
   {
     for (SRXGains a : gains)
     {
       frontLeftTalon.setGains(a);
       frontRightTalon.setGains(a);
     }
-  }
+  }*/
 }

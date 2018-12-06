@@ -42,8 +42,8 @@ public class getGyroValuesCommand extends TimedCommand
   {
     RobotMap.drivetrain.forwards();
 
-    if (RobotMap.navX.getRawAccelX() > maxAccel)
-      maxAccel = RobotMap.navX.getRawAccelX();
+    if (RobotMap.navX.getWorldLinearAccelX() > maxAccel)
+      maxAccel = RobotMap.navX.getWorldLinearAccelX();
 
     if (RobotMap.navX.getVelocityX() > maxVel)
       maxVel = RobotMap.navX.getVelocityX();
@@ -52,6 +52,7 @@ public class getGyroValuesCommand extends TimedCommand
   // Called once after timeout
   @Override
   protected void end() {
+    RobotMap.drivetrain.stop();
     System.out.println("Acceleration: " + maxAccel);
     System.out.println("Velocity: " + maxVel);
   }

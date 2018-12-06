@@ -46,7 +46,8 @@ public class Robot extends TimedRobot
     SmartDashboard.putData("Auto mode", m_chooser);
 
     RobotMap.init();
-	  
+    
+    RobotMap.navX.reset();
   }
 
   /**
@@ -107,8 +108,8 @@ public class Robot extends TimedRobot
       m_autonomousCommand.start();
     }
 
-    //new MotionProfilingTestingCommandGroup().start();
-    new getGyroValuesCommand(5).start();
+    new MotionProfilingTestingCommandGroup().start();
+    //new getGyroValuesCommand(1).start();
   }
 
   /**
