@@ -7,15 +7,16 @@
 
 package frc.robot;
 
+import com.team319.follower.FollowArc;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.arcs.TurnScalingArc;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.components.*;
 import frc.robot.commands.autonomous_commands.*;
 
 /**
@@ -46,8 +47,9 @@ public class Robot extends TimedRobot
     SmartDashboard.putData("Auto mode", m_chooser);
 
     RobotMap.init();
-    
+
     RobotMap.navX.reset();
+    RobotMap.navX.resetDisplacement();
   }
 
   /**
@@ -108,7 +110,8 @@ public class Robot extends TimedRobot
       m_autonomousCommand.start();
     }
 
-    new MotionProfilingTestingCommandGroup().start();
+    new FollowArc(RobotMap.drivetrain, new TurnScalingArc()).start();
+
     //new getGyroValuesCommand(1).start();
   }
 

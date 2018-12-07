@@ -33,7 +33,7 @@ public class PathCreator extends AbstractBobPathCreator {
 		config.encoder_ticks_per_rev = 4096; // Count of ticks on your encoder
 		config.robotLength = 39; // Robot length in inches, used for drawing the robot
 		config.robotWidth = 33; // Robot width in inches, used for drawing the robot
-		config.highGear = true;
+		//config.highGear = true;
 	}
 
 	@Override

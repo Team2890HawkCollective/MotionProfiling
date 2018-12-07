@@ -7,7 +7,11 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
+import com.ctre.phoenix.motorcontrol.SensorTerm;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -38,32 +42,26 @@ public class RobotMap {
   final public static int REAR_LEFT_TALON_ID = 2;
   final public static int REAR_RIGHT_TALON_ID = 1;
 
+  final public static int NAV_X_CAN_ID = 12;
+
   final public static int LINEAR_PIDF_SLOT = 0;
   final public static int ROTATIONAL_PIDF_SLOT = 1;
 
-  final public static double linearP = 0.7;
-  final public static double linearI = 0;
-  final public static double linearD = 0;
-  final public static double linearF = 0.7;
-  final public static int linearIZone = 0;
+  final public static double LINEAR_P = 0.7;
+  final public static double LINEAR_I = 0;
+  final public static double LINEAR_D = 0;
+  final public static double LINEAR_F = 0.7;
+  final public static int LINEAR_I_ZONE = 0;
 
-  final public static double rotationalP = 0.7;
-  final public static double rotationalI = 0;
-  final public static double rotationalD = 0;
-  final public static double rotationalF = 0;
-  final public static int rotationalIZone = 0;
+  final public static double ROTATIONAL_P = 0.7;
+  final public static double ROTATIONAL_I = 0;
+  final public static double ROTATIONAL_D = 0;
+  final public static double ROTATIONAL_F = 0;
+  final public static int ROTATIONAL_I_ZONE = 0;
 
-  final public static SPI.Port navXPort = SPI.Port.kMXP;
-
-  //public static LeaderBobTalonSRX frontLeftTalon;
-  //public static LeaderBobTalonSRX frontRightTalon;
+  final public static SPI.Port NAV_X_PORT = SPI.Port.kMXP;
 
   public static AHRS navX;
-
-  //public static SRXGains linearGains;
-  //public static SRXGains rotationalGains;
-
-  //public static MotionProfilingTestingCommandGroup testingCommandGroup;
 
   public static DrivetrainSubsystem drivetrain;
   
@@ -72,38 +70,52 @@ public class RobotMap {
   public static WPI_TalonSRX rearLeftTalon;
   public static WPI_TalonSRX rearRightTalon;
 
+  public static CANifier navXCAN;
+
   public static void init()
   {
-    // Create new "Leader talons", where when a speed is set to the lead talons, the follower talons also are set that speed
-    // Parameters: leaderDeviceID, follower BobTalonSRX/Any MotorController)
-    /*frontLeftTalon = new LeaderBobTalonSRX(FRONT_LEFT_TALON_ID, new BobTalonSRX(REAR_LEFT_TALON_ID));
-    frontRightTalon = new LeaderBobTalonSRX(FRONT_RIGHT_TALON_ID, new BobTalonSRX(REAR_RIGHT_TALON_ID));
-    */
-
-    //linearGains = new SRXGains(LINEAR_PIDF_SLOT, linearP, linearI, linearD, linearF, linearIZone);
-    //rotationalGains  = new SRXGains(ROTATIONAL_PIDF_SLOT, rotationalP, rotationalI, rotationalD, rotationalF, rotationalIZone);
-
-    //testingCommandGroup = new MotionProfilingTestingCommandGroup();
 
     frontLeftTalon = new WPI_TalonSRX(FRONT_LEFT_TALON_ID);
     frontRightTalon = new WPI_TalonSRX(FRONT_RIGHT_TALON_ID);
     rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
     rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
 
-    navX = new AHRS(navXPort);
+    navX = new AHRS(NAV_X_PORT);
+
+    //navXCAN = new CANifier(NAV_X_CAN_ID);
     
     drivetrain = new DrivetrainSubsystem();
 
-    //testingCommandGroup = new MotionProfilingTestingCommandGroup();
+    configureTalons();
+  }
 
-    //frontLeftTalon.configPrimaryFeedbackDevice(FeedbackDevice.QuadEncoder);
-    //frontRightTalon.configPrimaryFeedbackDevice(FeedbackDevice.QuadEncoder);
-
-    //SRXGains[] gains = {linearGains, rotationalGains};
-    //setGains(gains);
-
+  private static void configureTalons()
+  {
+    //Config Front Left Talon
+    frontLeftTalon.setSensorPhase(false);
     frontLeftTalon.setInverted(true);
+
+    frontLeftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 5);
+    frontLeftTalon.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 5, 0);
+
+    //Config Front Right Talon
+    frontRightTalon.setSensorPhase(false);
     frontRightTalon.setInverted(true);
+
+    frontRightTalon.configRemoteFeedbackFilter(frontRightTalon.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 0, 0);
+    //frontRightTalon.configRemoteFeedbackFilter(navXCAN.getDeviceID(), RemoteSensorSource.CANifier_PWMInput3, 1, 0);
+
+    frontRightTalon.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, 0);
+    frontRightTalon.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.QuadEncoder, 0);
+
+    frontRightTalon.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, 0, 0);
+    frontRightTalon.configSelectedFeedbackCoefficient(0.5, 0, 0);
+
+    // Configure NavX via CANifier or PigeonIMU
+    //frontRightTalon.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor1, 1, 0);
+    //frontRightTalon.configSelectedFeedbackCoefficient((3600.0 / 8192.0), 1, 0);
+
+    //Config Rear talons
     rearLeftTalon.setInverted(false);
     rearRightTalon.setInverted(true);
     

@@ -73,7 +73,7 @@ public class DrivetrainSubsystem extends Subsystem implements FollowsArc{
   // This should return the current value of your sum sensor that will be configured in a future step
   @Override
   public double getDistance() {
-    return right.getPrimarySensorPosition(); 
+    return RobotMap.frontRightTalon.getSelectedSensorPosition(0);
   }
   
   // This should return the instance of your drive train
