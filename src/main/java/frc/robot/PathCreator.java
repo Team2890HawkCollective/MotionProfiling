@@ -25,7 +25,11 @@ public class PathCreator extends AbstractBobPathCreator {
 		new PathCreator().generatePaths();
 	}
 	
-	private PathCreator() {
+	/**
+	 * This is where we set the values for our bot's acceleration, velocity, wheel diameter, length, and width
+	*/
+	private PathCreator() 
+	{
 		config.max_acc = 8.0; // Maximum acceleration in FPS
 		config.max_vel = 10.0; // Maximum velocity in FPS
 		config.wheel_dia_inches = 4.0;

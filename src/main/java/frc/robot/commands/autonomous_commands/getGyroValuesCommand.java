@@ -27,7 +27,7 @@ public class getGyroValuesCommand extends TimedCommand
     super(timeout);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(RobotMap.drivetrain);
+    requires(RobotMap.drivetrainSubsystem);
   }
 
   // Called just before this Command runs the first time
@@ -40,8 +40,8 @@ public class getGyroValuesCommand extends TimedCommand
   @Override
   protected void execute() 
   {
-    RobotMap.drivetrain.forwards();
-
+    RobotMap.drivetrainSubsystem.forwards();
+    
     if (RobotMap.navX.getWorldLinearAccelX() > maxAccel)
       maxAccel = RobotMap.navX.getWorldLinearAccelX();
 
@@ -52,7 +52,7 @@ public class getGyroValuesCommand extends TimedCommand
   // Called once after timeout
   @Override
   protected void end() {
-    RobotMap.drivetrain.stop();
+    RobotMap.drivetrainSubsystem.stop();
     System.out.println("Acceleration: " + maxAccel);
     System.out.println("Velocity: " + maxVel);
   }

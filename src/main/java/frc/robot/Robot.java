@@ -110,7 +110,10 @@ public class Robot extends TimedRobot
       m_autonomousCommand.start();
     }
 
-    new FollowArc(RobotMap.drivetrain, new TurnScalingArc()).start();
+    //new FollowArc(RobotMap.drivetrain, new TurnScalingArc()).start();
+
+    //Calculate F-Gain
+    new getVelocityViaEncoders(false).start();
 
     //new getGyroValuesCommand(1).start();
   }
