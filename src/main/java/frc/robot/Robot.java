@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.arcs.TurnScalingArc;
+
+import frc.arcs.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.commands.autonomous_commands.*;
@@ -110,7 +111,7 @@ public class Robot extends TimedRobot
       m_autonomousCommand.start();
     }
 
-    //new FollowArc(RobotMap.drivetrain, new TurnScalingArc()).start();
+    //new FollowArc(RobotMap.drivetrainSubsystem, new TurnScalingArc()).start();
 
     //Calculate F-Gain
     new getVelocityViaEncoders(false).start();

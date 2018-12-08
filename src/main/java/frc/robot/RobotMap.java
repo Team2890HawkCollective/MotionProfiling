@@ -97,6 +97,7 @@ public class RobotMap {
     drivetrainSubsystem = new DrivetrainSubsystem();
 
     configureTalons();
+    setSubsystems();
   }
 
   //Sets the Subsystems and Names for ShuffleBoard
