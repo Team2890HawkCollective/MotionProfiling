@@ -9,18 +9,19 @@ package frc.robot.commands.autonomous_commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.RobotMap;
 
-public class getVelocityViaEncoders extends Command 
+public class getVelocityViaEncoders extends TimedCommand 
 {
-  private int maxVel = 0;
-  private int maxErr = 0;
+  private double maxVel = 0;
+  private double maxErr = 0;
   private boolean step = false;
 
-  public getVelocityViaEncoders(boolean s) {
+  public getVelocityViaEncoders(double timeout, boolean s) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    super(timeout);
     requires(RobotMap.drivetrainSubsystem);
     step = s;
   }
@@ -41,7 +42,7 @@ public class getVelocityViaEncoders extends Command
     System.out.println("Velocity: " + vel);
 
     if (vel > maxVel)
-      maxVel = vel;
+      maxVel = (double) vel;
 
     if (step)
     {
@@ -51,7 +52,7 @@ public class getVelocityViaEncoders extends Command
       System.out.println("Trgt: " + 4096 * 500 / 600);
 
       if (err > maxErr)
-        maxErr = err;
+        maxErr = (double) err;
     }
     else
     {
@@ -60,21 +61,17 @@ public class getVelocityViaEncoders extends Command
     }
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() 
-  {
-    return false;
-  }
-
   // Called once after isFinished returns true
   @Override
   protected void end() 
   {
+    RobotMap.frontLeftTalon.set(0);
+    RobotMap.frontRightTalon.set(0);
+
     if (step)
-      System.out.println("P-Gain: " + (.1 * 1023) / maxErr);
+      System.out.println("P-Gain: " + (1.0 * 1023.0) / maxErr);
     else
-      System.out.println("F-Gain: " + (1 * 1023) / maxVel);
+      System.out.println("F-Gain: " + (1.0 * 1023.0) / maxVel);
   }
 
   // Called when another command which requires one or more of the same

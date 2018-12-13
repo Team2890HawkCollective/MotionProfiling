@@ -54,10 +54,10 @@ public class RobotMap {
 
   //PIDF Values
     //Linear(straight) PIDF Values
-      final public static double LINEAR_P = 0.7;
+      final public static double LINEAR_P = 0.3069306930693069;
       final public static double LINEAR_I = 0;
       final public static double LINEAR_D = 0;
-      final public static double LINEAR_F = 0.7;
+      final public static double LINEAR_F = 0.24573624789815038;
 
     //Rotational(turning) PIDF Values
       final public static double ROTATIONAL_P = 0.7;
@@ -95,6 +95,7 @@ public class RobotMap {
     //navXCAN = new CANifier(NAV_X_CAN_ID);
     
     drivetrainSubsystem = new DrivetrainSubsystem();
+    sensorSubsystem = new SensorSubsystem();
 
     configureTalons();
     setSubsystems();
@@ -131,7 +132,7 @@ public class RobotMap {
       frontLeftTalon.setInverted(true);
 
     //Config Front Right Talon
-      frontRightTalon.setSensorPhase(false);
+      frontRightTalon.setSensorPhase(true);
       frontRightTalon.setInverted(true);
 
     //Config Rear talons
