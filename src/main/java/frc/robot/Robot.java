@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.arcs.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.commands.autonomous_commands.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -48,9 +47,6 @@ public class Robot extends TimedRobot
     SmartDashboard.putData("Auto mode", m_chooser);
 
     RobotMap.init();
-
-    RobotMap.navX.reset();
-    RobotMap.navX.resetDisplacement();
   }
 
   /**
@@ -111,7 +107,7 @@ public class Robot extends TimedRobot
       m_autonomousCommand.start();
     }
 
-    new FollowArc(RobotMap.drivetrainSubsystem, new ExampleArc()).start();
+    new FollowArc(RobotMap.drivetrainSubsystem, new DistanceScalingArc()).start();
 
     //Calculate F-Gain
     //new getVelocityViaEncoders(5.0, true).start();
@@ -125,6 +121,10 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousPeriodic() 
   {
+    //RobotMap.frontLeftTalon.set(1);
+    //RobotMap.frontRightTalon.set(1);
+    //RobotMap.rearLeftTalon.set(1);
+    //RobotMap.rearRightTalon.set(1);
     Scheduler.getInstance().run();
   }
 
@@ -147,7 +147,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-    RobotMap.frontLeftTalon.set(1);
+    //RobotMap.frontLeftTalon.set(1);
   }
 
   /**

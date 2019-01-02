@@ -9,7 +9,6 @@ public class DistanceScalingArc extends SrxTrajectory {
 	// (X,Y,degrees)
 	// (2.00,13.50,0.00)
 	// (5.00,13.50,0.00)
-	// (X, Velocity, Duration(m/s), Y)
 	
     public DistanceScalingArc() {
 		super();

@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
@@ -46,8 +47,8 @@ public class RobotMap {
 
     //Other IDs
       //NavX Port/ID
-        final public static int NAV_X_CAN_ID = 12;
-        final public static SPI.Port NAV_X_PORT = SPI.Port.kMXP;
+        //final public static int NAV_X_CAN_ID = 12;
+        //final public static SPI.Port NAV_X_PORT = SPI.Port.kMXP;
 
       final public static int LINEAR_PIDF_SLOT = 0;
       final public static int ROTATIONAL_PIDF_SLOT = 1;
@@ -73,8 +74,9 @@ public class RobotMap {
     public static WPI_TalonSRX rearRightTalon;
 
     //Sensors
-      public static AHRS navX;
-      public static CANifier navXCAN;
+      //public static AHRS navX;
+      //public static CANifier navXCAN;
+      public static PigeonIMU pigeon;
 
     //Commands/Subsystems
       //Commands
@@ -90,7 +92,9 @@ public class RobotMap {
     rearLeftTalon = new WPI_TalonSRX(REAR_LEFT_TALON_ID);
     rearRightTalon = new WPI_TalonSRX(REAR_RIGHT_TALON_ID);
 
-    navX = new AHRS(NAV_X_PORT);
+    //navX = new AHRS(NAV_X_PORT);
+
+    pigeon = new PigeonIMU(rearRightTalon);
 
     //navXCAN = new CANifier(NAV_X_CAN_ID);
     
@@ -111,7 +115,8 @@ public class RobotMap {
         rearLeftTalon.setName("DrivetrainSubsystem", "RearLeftDriveTalon");
         rearRightTalon.setName("DrivetrainSubsystem", "RearRightDriveTalon");
       //Sensors
-      navX.setName("SensorSubsystem", "NavX");
+      //navX.setName("SensorSubsystem", "NavX");
+      System.out.print(pigeon.getAbsoluteCompassHeading());
     
     //Subsystems
       drivetrainSubsystem.setName("DrivetrainSubsystem", "DrivetrainSubsystem");
@@ -154,7 +159,7 @@ public class RobotMap {
 
     //Right Talon
       frontRightTalon.configRemoteFeedbackFilter(frontLeftTalon.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 0, 0); //Config the right talon to look at the left talon as a sensor
-      //frontRightTalon.configRemoteFeedbackFilter(navXCAN.getDeviceID(), RemoteSensorSource.CANifier_PWMInput3, 1, 0); //Config the right talon to use the navX (over CANifier) as a gyro sensor
+      frontRightTalon.configRemoteFeedbackFilter(pigeon.getDeviceID(), RemoteSensorSource.GadgeteerPigeon_Yaw, 1, 0); //Config the right talon to use the navX (over CANifier) as a gyro sensor
 
       //Config the primary sensor of the right talon to be a sum sensor (to average the left/right sides, telling us the overall position/speed of the bot)
         frontRightTalon.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, 0); 
@@ -164,8 +169,8 @@ public class RobotMap {
       frontRightTalon.configSelectedFeedbackCoefficient(0.5, 0, 0);
 
     // Configure NavX via CANifier or PigeonIMU
-      //frontRightTalon.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor1, 1, 0); //Set the secondary sensor of the right talon to be the navX (via CANifier) 
-      //frontRightTalon.configSelectedFeedbackCoefficient((3600.0 / 8192.0), 1, 0);
+      frontRightTalon.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor1, 1, 0); //Set the secondary sensor of the right talon to be the navX (via CANifier) 
+      frontRightTalon.configSelectedFeedbackCoefficient((3600.0 / 8192.0), 1, 0);
   }
 
   /**
